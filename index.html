@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Javascript Memory Leaks</title>
+    <style>
+        *, *:before, *:after {
+            box-sizing: border-box;
+        }
+
+        .elevator {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .elevator-window {
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid black;
+            margin-bottom: 6px;
+        }
+
+        .elevator-floor {
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+            height: 400px;
+            font-size: 100px;
+        }
+        
+        .elevator-controls {
+            display: flex;
+            justify-content: center;
+        }
+
+        .elevator-controls * {
+            padding: 12px;
+            margin-right: 6px;
+        }
+
+        .elevator-controls *:last-child {
+            margin-right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="elevator">
+        <div class="elevator-window">
+            <div class="elevator-floor"><span>4</span></div>
+            <div class="elevator-floor"><span>3</span></div>
+            <div class="elevator-floor"><span>2</span></div>
+            <div class="elevator-floor"><span>1</span></div>
+        </div>
+        <div class="elevator-controls">
+            <button id="elevator-controls-up">Up</button>
+            <button id="elevator-controls-down">Down</button>
+        </div>
+    </div>
+
+    <script>
+        const elevatorHeight = 400;
+        const numElevatorFloors = document.querySelectorAll('.elevator-floor').length;
+
+        const elevatorWindow = document.querySelector('.elevator-window');
+        const elevatorUpButton = document.getElementById('elevator-controls-up');
+        const elevatorDownButton = document.getElementById('elevator-controls-down');
+
+        let elevatorFloor = 1;
+
+        elevatorUpButton.addEventListener('click', () => {
+            if (elevatorFloor >= numElevatorFloors) {
+                return;
+            }
+            scrollToFloor(++elevatorFloor);
+        });
+        elevatorDownButton.addEventListener('click', () => {
+            if (elevatorFloor <= 1) {
+                return;
+            }
+            scrollToFloor(--elevatorFloor);
+        });
+
+        function getFloorTop(elevatorFloor) {
+            return (numElevatorFloors - elevatorFloor) * elevatorHeight;
+        }
+        function scrollToFloor(elevatorFloor) {
+            elevatorWindow.scrollTo({
+                behavior: 'smooth',
+                top: getFloorTop(elevatorFloor),
+            });
+        }
+
+        window.addEventListener('load', () => {
+            scrollToFloor(elevatorFloor);
+        });
+    </script>
+</body>
+</html>
