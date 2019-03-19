@@ -82,14 +82,26 @@
             scrollToFloor(--elevatorFloor);
         });
 
+        elevatorWindow.addEventListener('scroll', (function () {
+            var timeoutId = null;
+            return function () {
+                var fireEvent = { message: "scroll telemetry fired" };
+                if (timeoutId) {
+                    window.clearTimeout(timeoutId);
+                }
+                timeoutId = setTimeout(() => console.log(JSON.stringify(fireEvent)), 5000);
+            };
+        }()));
+
         function getFloorTop(elevatorFloor) {
             return (numElevatorFloors - elevatorFloor) * elevatorHeight;
         }
         function scrollToFloor(elevatorFloor) {
-            elevatorWindow.scrollTo({
+            scrollOptions = {
                 behavior: 'smooth',
                 top: getFloorTop(elevatorFloor),
-            });
+            };
+            elevatorWindow.scrollTo(scrollOptions);
         }
 
         window.addEventListener('load', () => {
