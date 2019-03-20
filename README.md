@@ -36,8 +36,9 @@ There are a few timer creators in Javascript, a timer could be created using any
 - [setInterval](https://devdocs.io/dom/windoworworkerglobalscope/setinterval)
 - [requestAnimationFrame](https://devdocs.io/dom/window/requestanimationframe)
 
-Timers get added to the browser event loop, the conceptual model of this is as follows:
-![Javascript Runtime Model](./JavascriptRuntimeModel.svg)
+Timers get added to the browser event loop, the conceptual model of this is as follows:  
+![Javascript Runtime Model](./JavascriptRuntimeModel.svg)  
+![Javascript Event Loop](./JavascriptEventLoop.gif)
 
 https://codepen.io/rcasto/pen/ZPMJWr
 
