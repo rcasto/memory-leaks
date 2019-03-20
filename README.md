@@ -28,12 +28,7 @@ Anything left unreachable, can be safely garbage collected. This does imply that
 - Detached DOM references
 
 ### Unintentional global variables
-<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="html,result" data-user="rcasto" data-slug-hash="WmgpRj" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid black; margin: 1em 0; padding: 1em;" data-pen-title="Unintentional Global Variable Memory Leak">
-  <span>See the Pen <a href="https://codepen.io/rcasto/pen/WmgpRj/">
-  Unintentional Global Variable Memory Leak</a> by Richie (<a href="https://codepen.io/rcasto">@rcasto</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
-<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+https://codepen.io/rcasto/pen/WmgpRj
 
 **Rule of thumb:**  
 Always declare a variable using `var`, `const`, or `let`.  
@@ -48,12 +43,7 @@ There are a few timer creators in Javascript, a timer could be created using any
 Timers get added to the browser event loop, the conceptual model of this is as follows:
 ![Javascript Runtime Model](./JavascriptRuntimeModel.svg)
 
-<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="js,result" data-user="rcasto" data-slug-hash="ZPMJWr" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid black; margin: 1em 0; padding: 1em;" data-pen-title="Timer Memory Leak">
-  <span>See the Pen <a href="https://codepen.io/rcasto/pen/ZPMJWr/">
-  Timer Memory Leak</a> by Richie (<a href="https://codepen.io/rcasto">@rcasto</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
-<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+https://codepen.io/rcasto/pen/ZPMJWr
 
 **Rule of thumb:**   
 Every setTimeout, setInterval, requestAnimationFrame should have a corresponding [clearTimeout](https://devdocs.io/dom/windoworworkerglobalscope/cleartimeout), [clearInterval](https://devdocs.io/dom/windoworworkerglobalscope/clearinterval), [cancelAnimationFrame](https://devdocs.io/dom/window/cancelanimationframe).
@@ -66,7 +56,17 @@ Event-driven programming is very common in Javascript and typically you will add
 **Rule of thumb:**  
 Remember to cleanup event handlers utilizing [`removeEventListener`](https://devdocs.io/dom/eventtarget/removeeventlistener).
 
+In most modern browsers though, once the node has been detached from the DOM and all references removed the event handlers attached should also be cleaned up.
+
+Also in most cases, at least in our code, we will be utilizing React to attach these handlers. It is the responsibility of React to then remove these event handler references as React is what translates the intermediate DOM objects to actual DOM nodes.
+
 ### Detached DOM references
+When dealing with the DOM directly we often retain a reference to the DOM node in memory. This is especially prevalent when constructing the DOM entries from within Javascript.
+
+https://codepen.io/rcasto/pen/aMayjx
+
+**Rule of thumb**  
+Remember to remove references to DOM nodes in Javascript that have been removed from the DOM tree.
 
 ## Detecting/finding memory leaks
 [Chrome dev tools](https://developers.google.com/web/tools/chrome-devtools/) is an essential tool when trying to find memory leaks and knowing at least some of the basics of using it can help tremendously. The most useful tools for detecting memory leaks within the dev tools are as follows:
