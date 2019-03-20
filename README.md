@@ -2,10 +2,6 @@
  "A memory leak is a type of resource leak that occurs when a computer program incorrectly manages memory allocations in such a way that memory which is no longer needed is not released" from [Wikipedia](https://en.wikipedia.org/wiki/Memory_leak)
 
 Basic [memory lifecycle](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management#Memory_life_cycle) in most languages:
-1. Allocate the memory you need
-2. Use the allocated memory (read, write)
-3. Release the allocated memory when it is not needed anymore
-
 ![Memory Management Flow](./MemoryFlow.png)
 
 ## Javascript Memory Management
@@ -84,3 +80,4 @@ When investigating memory leaks, always use _incognito_ mode of the browser. Ext
 - https://en.wikipedia.org/wiki/Memory_leak
 - https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)
 - https://en.wikipedia.org/wiki/Tracing_garbage_collection
+- https://medium.com/@_lrlna/garbage-collection-in-v8-an-illustrated-guide-d24a952ee3b8
