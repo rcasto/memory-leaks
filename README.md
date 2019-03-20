@@ -74,6 +74,9 @@ Remember to remove references to DOM nodes in Javascript that have been removed 
 - [Heap snapshot comparison](https://developers.google.com/web/tools/chrome-devtools/memory-problems/heap-snapshots#comparison_view)
 - [Allocation Timeline](https://developers.google.com/web/tools/chrome-devtools/memory-problems/allocation-profiler)
 
+**Note:**  
+When investigating memory leaks, always use _incognito_ mode of the browser. Extensions tend to have interesting interactions that may lead to memory leak false positives and such.
+
 ## Resources
 - https://developers.google.com/web/tools/chrome-devtools/memory-problems/
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management
